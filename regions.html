@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/selection.js"></script>
+    <style>
+        #source-1 {
+            -webkit-flow-into: flow-1;
+        }
+
+        #region-1 {
+            -webkit-flow-from: flow-1;
+        }
+    </style>
+</head>
+<body onload="select('content-1', 'content-2');">
+    <div id="source-1">source-1</div>
+    <div id="content-1">content-1</div>
+    <div id="region-1"></div>
+    <div id="content-2">content-2</div>
+</body>
+</html>

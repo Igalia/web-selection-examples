@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/selection.js"></script>
+    <style>
+        #multicol {
+            -webkit-column-count: 2;
+        }
+
+        #span {
+            -webkit-column-span: all;
+        }
+    </style>
+</head>
+<body onload="select('content-1', 'content-2');">
+    <div id="multicol">
+        <div id="content-1">content-1</div>
+        <div id="span">span content</div>
+        <div id="content-2">content-2</div>
+    </div>
+</body>
+</html>

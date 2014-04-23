@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <title>Web Selection Examples</title>
+        <style>
+            .ok {
+                color: green;
+            }
+            .ko {
+                color: red;
+            }
+        </style>
+    </head>
+    <body style="padding-top: 50px;">
+        <a href="https://github.com/Igalia/web-selection-examples"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1050;" src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Selection in Different Layout Models</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Web Selection Examples</h1>
+                <p>Review of how selection interaction works in different layout models on the web.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4>Summary</h4></div>
+                        <table class="table table-striped">
+                            <tr>
+                                <th rowspan="2">Layout Model</th><th colspan="2">Content</th><th colspan="2">Highlight</th>
+                            </tr>
+                            <tr>
+                                <th>DOM</th><th>User</th><th>DOM</th><th>User</th>
+                            </tr>
+                            <tr>
+                                <th><a href="#absolute">Absolute</a></th>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                            </tr>
+                            <tr>
+                                <th><a href="#flexbox">Flexbox</a></th>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                            </tr>
+                            <tr>
+                                <th><a href="#regions">Regions</a></th>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                                <td>
+                                    <span class="glyphicon glyphicon-remove text-danger"></span>
+                                    <sup data-toggle="tooltip" data-placement="bottom" title="Because of block gaps filling">*</sup>
+                                </td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <a href="#multicol">Multicol</a>
+                                    <sup data-toggle="tooltip" data-placement="right" title="New implementation">*</sup>
+                                </th>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                            </tr>
+                            <tr>
+                                <th><a href="#grid">Grid</a></th>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="panel panel-warning">
+                        <div class="panel-heading"><h4>Notes</h4></div>
+                        <div class="panel-body">
+                            <p>In this page we're testing a similar selection's use case with different layout models. Checking if current behavior matches what user expects or not. User expectations can be subjective and depending on each layout model we might need to define different things.</p>
+                            <p>For each layout model we're showing the <strong>DOM tree</strong> (using <code>Node::showTreeForThis()</code>) and <strong>render tree</strong> (using <code>RenderObject::showRenderTreeForThis()</code>).</p>
+                            <p>Each HTML example is performing a selection on load. Check JavaScript console in order to know the selection's content (you can also use <em>Copy&amp;Paste</em>).</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="panel panel-default" id="absolute">
+                        <div class="panel-heading"><h4>Absolute positions</h4></div>
+                        <div class="panel-body">
+                            <p class="pull-right"><a href="absolute.html" class="label label-success">example</a></p>
+                            <ul>
+                                <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-2</code>.</li>
+                                <li><strong>Result</strong>:
+                                    <ul>
+                                        <li><em>Content</em>: It ignores <code>absolute-1</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
+                                        <li><em>Highlight</em>: It shows highlighted from <code>content-1</code> to <code>content-2</code> ignoring <code>absolute-1</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="panel-group" id="absoluteData">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#absoluteData" href="#absoluteVisual">Visualization</a></div>
+                                    <div id="absoluteVisual" class="panel-body collapse">
+                                        <pre>content-1
+absolute-1
+content-2</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#absoluteData" href="#absoluteDOM">DOM tree</a></div>
+                                    <div id="absoluteDOM" class="panel-body collapse">
+                                        <pre>BODY    0x1e6017408008
+    #text   0x1e601740c188 "\n    "
+    DIV 0x1e6017408170
+        #text   0x1e601740c1e8 "absolute-1"
+    #text   0x1e601740c248 "\n    "
+    DIV 0x1e60174081e8
+        #text   0x1e601740c2a8 "content-1"
+    #text   0x1e601740c308 "\n    "
+    DIV 0x1e6017408260
+        #text   0x1e601740c368 "content-2"
+    #text   0x1e601740c3c8 "\n\n\n"</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#absoluteData" href="#absoluteRender">Render tree</a></div>
+                                    <div id="absoluteRender" class="panel-body collapse">
+                                        <pre>RenderView 0x398fba004008               #document   0x1e6017404008
+  RenderBlock 0x398fba00c008            HTML    0x1e60174080f8
+    RenderBody 0x398fba00c108           BODY    0x1e6017408008
+      RenderBlock (positioned) 0x398fba00c308   DIV 0x1e60174081e8
+        RenderText 0x398fba0100a0       #text   0x1e601740c2a8 "absolute-1"
+      RenderBlock (positioned) 0x398fba00c208   DIV 0x1e6017408170
+        RenderText 0x398fba010008       #text   0x1e601740c1e8 "content-1"
+      RenderBlock (positioned) 0x398fba00c408   DIV 0x1e6017408260
+        RenderText 0x398fba010138       #text   0x1e601740c368 "content-2"</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" id="flexbox">
+                        <div class="panel-heading"><h4>Flexbox</h4></div>
+                        <div class="panel-body">
+                            <p class="pull-right"><a href="flexbox.html" class="label label-success">example</a></p>
+                            <ul>
+                                <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-3</code>.</li>
+                                <li><strong>Result</strong>:
+                                    <ul>
+                                        <li><em>Content</em>: It ignores <code>content2</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
+                                        <li><em>Highlight</em>: It shows highlighted from <code>content-1</code> to <code>content-3</code> ignoring <code>content-2</code>. This is right according to DOM tree. This is wrong from user point of view (<code>content-2</code> should be selected).</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="panel-group" id="flexboxData">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#flexboxData" href="#flexboxVisual">Visualization</a></div>
+                                    <div id="flexboxVisual" class="panel-body collapse">
+                                        <pre>content-1
+content-2
+content-3</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#flexboxData" href="#flexboxDOM">DOM tree</a></div>
+                                    <div id="flexboxDOM" class="panel-body collapse">
+                                        <pre>BODY    0x1b1b7c808008
+    #text   0x1b1b7c80c188 "\n    "
+    DIV 0x1b1b7c808170
+        #text   0x1b1b7c80c1e8 "\n        "
+        DIV 0x1b1b7c8081e8 STYLE=-webkit-order: 1;
+            #text   0x1b1b7c80c248 "content-2"
+        #text   0x1b1b7c80c2a8 "\n        "
+        DIV 0x1b1b7c808260 STYLE=-webkit-order: 0;
+            #text   0x1b1b7c80c308 "content-1"
+        #text   0x1b1b7c80c368 "\n        "
+        DIV 0x1b1b7c8082d8 STYLE=-webkit-order: 2;
+            #text   0x1b1b7c80c3c8 "content-3"
+        #text   0x1b1b7c80c428 "\n    "
+    #text   0x1b1b7c80c488 "\n\n\n\n"</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#flexboxData" href="#flexboxRender">Render tree</a></div>
+                                    <div id="flexboxRender" class="panel-body collapse">
+                                        <pre>RenderView 0x3963bd804008               #document   0x1b1b7c804008
+  RenderBlock 0x3963bd80c008            HTML    0x1b1b7c8080f8
+    RenderBody 0x3963bd80c108           BODY    0x1b1b7c808008
+      RenderFlexibleBox 0x3963bd810008  DIV 0x1b1b7c808170
+        RenderBlock 0x3963bd80c208      DIV 0x1b1b7c8081e8 STYLE=-webkit-order: 1;
+          RenderText 0x3963bd814008     #text   0x1b1b7c80c248 "content-2"
+        RenderBlock 0x3963bd80c308      DIV 0x1b1b7c808260 STYLE=-webkit-order: 0;
+          RenderText 0x3963bd8140a0     #text   0x1b1b7c80c308 "content-1"
+        RenderBlock 0x3963bd80c408      DIV 0x1b1b7c8082d8 STYLE=-webkit-order: 2;
+          RenderText 0x3963bd814138     #text   0x1b1b7c80c3c8 "content-3"</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" id="regions">
+                        <div class="panel-heading"><h4>Regions</h4></div>
+                        <div class="panel-body">
+                            <p class="pull-right"><a href="regions.html" class="label label-success">example</a></p>
+                            <ul>
+                                <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-2</code>.</li>
+                                <li><strong>Result</strong>:
+                                    <ul>
+                                        <li><em>Content</em>: It ignores <code>source-1</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
+                                        <li><em>Highlight</em>: It shows highlighted from <code>content-1</code> to <code>content-2</code> including <code>source-1</code> (which is not actually selected but highlighted due to gaps filling). This is wrong according to DOM tree (<code>source-1</code> shouldn't be highlighted due to gaps filling). This is wrong from user point of view (<code>source-1</code> should be actually selected).</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="panel-group" id="regionsData">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#regionsData" href="#regionsVisual">Visualization</a></div>
+                                    <div id="regionsVisual" class="panel-body collapse">
+                                        <pre>content-1
+source-1
+content-2</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#regionsData" href="#regionsDOM">DOM tree</a></div>
+                                    <div id="regionsDOM" class="panel-body collapse">
+                                        <pre>BODY    0x3a2254208008
+    #text   0x3a225420c188 "\n    "
+    DIV 0x3a2254208170
+        #text   0x3a225420c1e8 "source-1"
+    #text   0x3a225420c248 "\n    "
+    DIV 0x3a22542081e8
+        #text   0x3a225420c2a8 "content-1"
+    #text   0x3a225420c308 "\n    "
+    DIV 0x3a2254208260
+    #text   0x3a225420c368 "\n    "
+    DIV 0x3a22542082d8
+        #text   0x3a225420c3c8 "content-2"
+    #text   0x3a225420c428 "\n\n\n"</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#regionsData" href="#regionsRender">Render tree</a></div>
+                                    <div id="regionsRender" class="panel-body collapse">
+                                        <pre>RenderView 0x261b3e004008               #document   0x3a2254204008
+  RenderBlock 0x261b3e00c008            HTML    0x3a22542080f8
+    RenderBody 0x261b3e00c108           BODY    0x3a2254208008
+      RenderBlock 0x261b3e00c308        DIV 0x3a22542081e8
+        RenderText 0x261b3e0140a0       #text   0x3a225420c2a8 "content-1"
+      RenderBlock 0x261b3e00c408        DIV 0x3a2254208260
+        RenderNamedFlowFragment 0x261b3e018008
+      RenderBlock 0x261b3e00c508        DIV 0x3a22542082d8
+        RenderText 0x261b3e014138       #text   0x3a225420c3c8 "content-2"
+  RenderNamedFlowThread 0x261b3e010008
+    RenderBlock 0x261b3e00c208          DIV 0x3a2254208170
+      RenderText 0x261b3e014008         #text   0x3a225420c1e8 "source-1"</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" id="multicol">
+                        <div class="panel-heading"><h4>Multicol</h4></div>
+                        <div class="panel-body">
+                            <p class="pull-right"><a href="multicol.html" class="label label-success">example</a></p>
+                            <ul>
+                                <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-2</code>.</li>
+                                <li><strong>Result</strong>:
+                                    <ul>
+                                        <li><em>Content</em>: It includes <code>span-content</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
+                                        <li><em>Highlight</em>: It shows highlighted from <code>content-1</code> to <code>content-2</code> ignoring <code>span-content</code>. This is wrong according to DOM tree (<code>span-content</code> should be highlighted). This is right from user point of view (<code>span-content</code> is ignored).</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="panel-group" id="multicolData">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#multicolData" href="#multicolVisual">Visualization</a></div>
+                                    <div id="multicolVisual" class="panel-body collapse">
+                                        <pre>content-1
+span-content
+content-2</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#multicolData" href="#multicolDOM">DOM tree</a></div>
+                                    <div id="multicolDOM" class="panel-body collapse">
+                                        <pre>BODY    0x1bab9f0
+    #text   0x1a501e0 "\n    "
+    DIV 0x1baba90
+        #text   0x1a4f370 "\n        "
+        DIV 0x1a4f3d0
+            #text   0x1a4f4b0 "content-1"
+        #text   0x1a4f540 "\n        "
+        DIV 0x1a50310
+            #text   0x1a503c0 "span-content"
+        #text   0x1a7ff80 "\n        "
+        DIV 0x1a7ffe0
+            #text   0x1a80050 "content-2"
+        #text   0x1a800e0 "\n    "
+    #text   0x1a80140 "\n\n\n"</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#multicolData" href="#multicolRender">Render tree</a></div>
+                                    <div id="multicolRender" class="panel-body collapse">
+                                        <pre>RenderView 0x1933e10
+  RenderBlock 0x1a811b0                 HTML    0x1baa3a0
+    RenderBody 0x1a81620                BODY    0x1bab9f0
+      RenderBlock 0x1a82b90             DIV 0x1baba90
+        RenderMultiColumnFlowThread 0x1a83c50 Rs:0x1a81940 Re:0x1a81e30
+          RenderBlock 0x1a83000 Rs:0x1a81940 Re:0x1a81e30   DIV 0x1a4f3d0
+            RenderText 0x1a83120        #text   0x1a4f4b0 "content-1"
+          RenderMultiColumnSpannerPlaceholder 0x1a81c00 Rs:0x1a81940 Re:0x1a81e30
+          RenderBlock 0x1a83510 Rs:0x1a81e30 Re:0x1a81e30   DIV 0x1a7ffe0
+            RenderText 0x1a83660        #text   0x1a80050 "content-2"
+        RenderMultiColumnSet 0x1a81940
+        RenderBlock 0x1a83200           DIV 0x1a50310
+          RenderText 0x1a834a0          #text   0x1a503c0 "span-content"
+        RenderMultiColumnSet 0x1a81e30</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" id="grid">
+                        <div class="panel-heading"><h4>Grid</h4></div>
+                        <div class="panel-body">
+                            <p class="pull-right"><a href="grid.html" class="label label-success">example</a></p>
+                            <ul>
+                                <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-3</code>.</li>
+                                <li><strong>Result</strong>:
+                                    <ul>
+                                        <li><em>Content</em>: It ignores <code>content-2</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
+                                        <li><em>Highlight</em>: It shows highlighted from <code>content-1</code> to <code>content-3</code> ignoring <code>content-2</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="panel-group" id="gridData">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#gridData" href="#gridVisual">Visualization</a></div>
+                                    <div id="gridVisual" class="panel-body collapse">
+                                        <pre>content-1
+content-2
+content-3</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#gridData" href="#gridDOM">DOM tree</a></div>
+                                    <div id="gridDOM" class="panel-body collapse">
+                                        <pre>BODY    0x48198e10008
+    #text   0x48198e20188 "\n    "
+    DIV 0x48198e10170
+        #text   0x48198e201e8 "\n        "
+        DIV 0x48198e101e8
+            #text   0x48198e20248 "content-2"
+        #text   0x48198e202a8 "\n        "
+        DIV 0x48198e10260
+            #text   0x48198e20308 "content-1"
+        #text   0x48198e20368 "\n        "
+        DIV 0x48198e102d8
+            #text   0x48198e203c8 "content-3"
+        #text   0x48198e20428 "\n    "
+    #text   0x48198e20488 "\n\n\n"</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#gridData" href="#gridRender">Render tree</a></div>
+                                    <div id="gridRender" class="panel-body collapse">
+                                        <pre>RenderView 0x3d1520204008               #document   0x48198e04008
+  RenderBlock 0x3d1520214008            HTML    0x48198e100f8
+    RenderBody 0x3d1520214108           BODY    0x48198e10008
+      RenderGrid 0x3d1520218008         DIV 0x48198e10170
+        RenderBlock 0x3d1520214208      DIV 0x48198e101e8
+          RenderText 0x3d1520228008     #text   0x48198e20248 "content-2"
+        RenderBlock 0x3d1520214308      DIV 0x48198e10260
+          RenderText 0x3d15202280a0     #text   0x48198e20308 "content-1"
+        RenderBlock 0x3d1520214408      DIV 0x48198e102d8
+          RenderText 0x3d1520228138     #text   0x48198e203c8 "content-3"</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $('sup').tooltip();
+        </script>
+    </body>
+</html>

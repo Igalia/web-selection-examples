@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/selection.js"></script>
+    <style>
+        #grid {
+            display: -webkit-grid;
+        }
+        #content-1 {
+            -webkit-grid-column: 1;
+            -webkit-grid-row: 1;
+        }
+        #content-2 {
+            -webkit-grid-column: 1;
+            -webkit-grid-row: 2;
+        }
+        #content-3 {
+            -webkit-grid-column: 1;
+            -webkit-grid-row: 3;
+        }
+    </style>
+</head>
+<body onload="select('content-1', 'content-3');">
+    <div id="grid">
+        <div id="content-2">content-2</div>
+        <div id="content-1">content-1</div>
+        <div id="content-3">content-3</div>
+    </div>
+</body>
+</html>
