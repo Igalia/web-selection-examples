@@ -106,9 +106,9 @@
                     <div class="panel panel-warning">
                         <div class="panel-heading"><h4>Notes</h4></div>
                         <div class="panel-body">
-                            <p>In this page we're testing a similar selection's use case with different layout models. Checking if current behavior matches what user expects or not. User expectations can be subjective and depending on each layout model we might need to define different things.</p>
+                            <p>We're testing similar selections with different layout models, to confirm that the current behavior matches what user expect. User expectations can be subjective and different layout models may require different selection behaviors.</p>
                             <p>For each layout model we're showing the <strong>DOM tree</strong> (using <code>Node::showTreeForThis()</code>) and <strong>render tree</strong> (using <code>RenderObject::showRenderTreeForThis()</code>).</p>
-                            <p>Each HTML example is performing a selection on load. Check JavaScript console in order to know the selection's content (you can also use <em>Copy&amp;Paste</em>).</p>
+                            <p>Each HTML example is performing a selection on load. Check JavaScript console (or <em>copy-and-past</em>) to see the selection's content.</p>
                         </div>
                     </div>
 
@@ -124,8 +124,8 @@
                                 <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-2</code>.</li>
                                 <li><strong>Result</strong>:
                                     <ul>
-                                        <li><em>Content</em>: It ignores <code>absolute-1</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
-                                        <li><em>Highlight</em>: It shows highlighted from <code>content-1</code> to <code>content-2</code> ignoring <code>absolute-1</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
+                                        <li><em>Content</em>: It ignores <code>absolute-1</code>. This is right according to DOM tree. This is wrong from the user's point of view.</li>
+                                        <li><em>Highlight</em>: Selection highlighting extends from from <code>content-1</code> to <code>content-2</code> ignoring <code>absolute-1</code>. This is right according to DOM tree. This is wrong from the user's point of view.</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -180,8 +180,8 @@ content-2</pre>
                                 <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-3</code>.</li>
                                 <li><strong>Result</strong>:
                                     <ul>
-                                        <li><em>Content</em>: It ignores <code>content2</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
-                                        <li><em>Highlight</em>: It shows highlighted from <code>content-1</code> to <code>content-3</code> ignoring <code>content-2</code>. This is right according to DOM tree. This is wrong from user point of view (<code>content-2</code> should be selected).</li>
+                                        <li><em>Content</em>: It ignores <code>content2</code>. This is right according to DOM tree. This is wrong from the user's point of view.</li>
+                                        <li><em>Highlight</em>: Selection highlighting extends from from <code>content-1</code> to <code>content-3</code> ignoring <code>content-2</code>. This is right according to DOM tree. This is wrong from the user's point of view (<code>content-2</code> should be selected).</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -240,8 +240,8 @@ content-3</pre>
                                 <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-2</code>.</li>
                                 <li><strong>Result</strong>:
                                     <ul>
-                                        <li><em>Content</em>: It ignores <code>source-1</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
-                                        <li><em>Highlight</em>: It shows highlighted from <code>content-1</code> to <code>content-2</code> including <code>source-1</code> (which is not actually selected but highlighted due to gaps filling). This is wrong according to DOM tree (<code>source-1</code> shouldn't be highlighted due to gaps filling). This is wrong from user point of view (<code>source-1</code> should be actually selected).</li>
+                                        <li><em>Content</em>: It ignores <code>source-1</code>. This is right according to DOM tree. This is wrong from the user's point of view.</li>
+                                        <li><em>Highlight</em>: Selection highlighting extends from from <code>content-1</code> to <code>content-2</code> including <code>source-1</code> (which is not actually selected but highlighted due to gaps filling). This is wrong according to DOM tree (<code>source-1</code> shouldn't be highlighted due to gaps filling). This is wrong from the user's point of view (<code>source-1</code> should be actually selected).</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -301,8 +301,8 @@ content-2</pre>
                                 <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-2</code>.</li>
                                 <li><strong>Result</strong>:
                                     <ul>
-                                        <li><em>Content</em>: It includes <code>span-content</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
-                                        <li><em>Highlight</em>: It shows highlighted from <code>content-1</code> to <code>content-2</code> ignoring <code>span-content</code>. This is wrong according to DOM tree (<code>span-content</code> should be highlighted). This is right from user point of view (<code>span-content</code> is ignored).</li>
+                                        <li><em>Content</em>: It includes <code>span-content</code>. This is right according to DOM tree. This is wrong from the user's point of view.</li>
+                                        <li><em>Highlight</em>: Selection highlighting extends from from <code>content-1</code> to <code>content-2</code> ignoring <code>span-content</code>. This is wrong according to DOM tree (<code>span-content</code> should be highlighted). This is right from the user's point of view (<code>span-content</code> is ignored).</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -365,8 +365,8 @@ content-2</pre>
                                 <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-3</code>.</li>
                                 <li><strong>Result</strong>:
                                     <ul>
-                                        <li><em>Content</em>: It ignores <code>content-2</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
-                                        <li><em>Highlight</em>: It shows highlighted from <code>content-1</code> to <code>content-3</code> ignoring <code>content-2</code>. This is right according to DOM tree. This is wrong from user point of view.</li>
+                                        <li><em>Content</em>: It ignores <code>content-2</code>. This is right according to DOM tree. This is wrong from the user's point of view.</li>
+                                        <li><em>Highlight</em>: Selection highlighting extends from from <code>content-1</code> to <code>content-3</code> ignoring <code>content-2</code>. This is right according to DOM tree. This is wrong from the user's point of view.</li>
                                     </ul>
                                 </li>
                             </ul>
