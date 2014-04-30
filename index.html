@@ -100,6 +100,13 @@
                                 <td><span class="glyphicon glyphicon-ok text-success"></span></td>
                                 <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
                             </tr>
+                            <tr>
+                                <th><a href="#shadow">Shadow DOM</a></th>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                                <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                                <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                            </tr>
                         </table>
                     </div>
 
@@ -411,6 +418,65 @@ content-3</pre>
           RenderText 0x3d15202280a0     #text   0x48198e20308 "content-1"
         RenderBlock 0x3d1520214408      DIV 0x48198e102d8
           RenderText 0x3d1520228138     #text   0x48198e203c8 "content-3"</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" id="shadow">
+                        <div class="panel-heading"><h4>Shadow DOM</h4></div>
+                        <div class="panel-body">
+                            <p class="pull-right"><a href="shadow.html" class="label label-success">example</a></p>
+                            <ul>
+                                <li><strong>Test</strong>: Select from <code>content-1</code> to <code>content-2</code>.</li>
+                                <li><strong>Result</strong>:
+                                    <ul>
+                                        <li><em>Content</em>: It ignores <code>shadow-1</code>. This is right according to the original DOM tree. This is wrong from the user's point of view.</li>
+                                        <li><em>Highlight</em>: Selection highlighting extends from from <code>content-1</code> to <code>content-2</code> including <code>shadow-1</code>. This is wrong according to the original DOM tree. This is right from the user's point of view.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="panel-group" id="shadowData">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#shadowData" href="#shadowVisual">Visualization</a></div>
+                                    <div id="shadowVisual" class="panel-body collapse">
+                                        <pre>content-1
+shadow-1
+content-2</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#shadowData" href="#shadowDOM">DOM tree</a></div>
+                                    <div id="shadowDOM" class="panel-body collapse">
+                                        <pre>BODY   0x20d27f4141a8
+    #text   0x20d27f420160 "\n    "
+    DIV 0x20d27f414230 ID="content-1"
+        #text   0x20d27f4201d0 "content-1"
+    #text   0x20d27f420240 "\n    "
+    DIV 0x20d27f4142b8 ID="shadow-1"
+        #document-fragment  0x20d27f440010
+            #text   0x20d27f420470 "shadow-1"
+    #text   0x20d27f4202b0 "\n    "
+    DIV 0x20d27f414340 ID="content-2"
+        #text   0x20d27f420320 "content-2"
+    #text   0x20d27f420390 "\n    "
+    SCRIPT  0x20d27f4300a8
+        #text   0x20d27f420400 "\n        var shadow = document.getElementById("shadow-1");\n        var shadowRoot = shadow.createShadowRoot();\n        shadowRoot.appendChild(document.createTextNode("shadow-1"));\n\n        select("content-1", "content-2");\n    "</pre>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading"><a data-toggle="collapse" data-parent="#shadowData" href="#shadowRender">Render tree</a></div>
+                                    <div id="shadowRender" class="panel-body collapse">
+                                        <pre>RenderView 0x2afd16004010                  #document   0x20d27f404010
+  RenderBlock 0x2afd16020010            HTML    0x20d27f414098
+    RenderBody 0x2afd16020110           BODY    0x20d27f4141a8
+      RenderBlock 0x2afd16020210        DIV 0x20d27f414230 ID="content-1"
+       RenderText 0x2afd16024010        #text   0x20d27f4201d0 "content-1"
+      RenderBlock 0x2afd16020310        DIV 0x20d27f4142b8 ID="shadow-1"
+        RenderText 0x2afd160240a8       #text   0x20d27f420470 "shadow-1"
+      RenderBlock 0x2afd16020410        DIV 0x20d27f414340 ID="content-2"
+        RenderText 0x2afd16024140       #text   0x20d27f420320 "content-2"</pre>
                                     </div>
                                 </div>
                             </div>
