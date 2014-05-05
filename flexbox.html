@@ -4,19 +4,22 @@
     <script src="js/selection.js"></script>
     <style>
         #flex {
+            display: flex;
             display: -webkit-flex;
+            flex-direction: column;
             -webkit-flex-direction: column;
         }
         #flex div {
+            flex: 1;
             -webkit-flex: 1;
         }
     </style>
 </head>
 <body onload="select('content-1', 'content-3');">
     <div id="flex">
-        <div id="content-2" style="-webkit-order: 1;" >content-2</div>
-        <div id="content-1" style="-webkit-order: 0;" >content-1</div>
-        <div id="content-3" style="-webkit-order: 2;" >content-3</div>
+        <div id="content-2" style="order: 1; -webkit-order: 1;" >content-2</div>
+        <div id="content-1" style="order: 0; -webkit-order: 0;" >content-1</div>
+        <div id="content-3" style="order: 2; -webkit-order: 2;" >content-3</div>
     </div>
 </body>
 </html>
