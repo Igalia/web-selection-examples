@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/selection.js"></script>
+</head>
+<body>
+    <div id="content-1">content-1</div>
+    <div id="shadow-1"></div>
+    <div id="content-2">content-2</div>
+    <script>
+        var shadow = document.getElementById("shadow-1");
+        var shadowRoot = shadow.createShadowRoot();
+        shadowRoot.appendChild(document.createTextNode("shadow-1"));
+
+        select("content-1", "content-2");
+    </script>
+</body>
+</html>
